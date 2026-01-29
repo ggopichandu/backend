@@ -39,7 +39,15 @@ pipeline {
             }
         }
 
-        stage('Nexus Artifact Upload'){
+        stage('Docker build'){
+            steps{
+                sh """
+                    docker build -t backend:${appVersion} .
+                """
+            }
+        }
+
+        /* stage('Nexus Artifact Upload'){
             steps{
                 script{
                     nexusArtifactUploader(
@@ -70,7 +78,7 @@ pipeline {
                 }
             }
         }            
-    }
+    } */
     post { 
         always { 
             echo 'I will always say Hello again!'
